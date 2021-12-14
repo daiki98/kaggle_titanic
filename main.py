@@ -21,6 +21,18 @@ test_path = 'dataset/test.csv'
 train = pd.read_csv(train_path)
 test = pd.read_csv(test_path)
 
+# Some info about the data
+train.info()
 
+print('------------------------------------')
+print('Percentage of NA per property sorted')
+print('------------------------------------')
+p = (train.isna().sum()/len(train)*100).sort_values(ascending=False)
+print(p)
+print('----------------------------------------------------')
+print('Unique values for duplications and other useful info')
+print('----------------------------------------------------')
+u = train.nunique().sort_values()
+print(u)
 
 

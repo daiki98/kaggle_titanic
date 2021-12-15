@@ -48,5 +48,14 @@ def clean_data(data):
     # Fill null of 'Embarked'
     data.dropna(axis=0, subset=['Embarked'], inplace=True)
 
+    # Categorical data
+    le = preprocessing.LabelEncoder()
 
+    # Sex
+    data['Sex'].replace({'male': 0, 'female': 1}, inplace=True)
+
+    # Embarked
+    data['Embarked'].replace({'male': 0, 'female': 1}, inplace=True)
+
+    return data
 

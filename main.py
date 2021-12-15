@@ -45,5 +45,8 @@ def clean_data(data):
     # FARE Data missing in test
     data['Fare'] = data.groupby(['Pclass', 'Sex'])['Age'].transform(lambda x: x.fillna(x.median()))
 
-    #
+    # Fill null of 'Embarked'
+    data.dropna(axis=0, subset=['Embarked'], inplace=True)
+
+
 

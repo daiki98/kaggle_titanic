@@ -22,17 +22,28 @@ train = pd.read_csv(train_path)
 test = pd.read_csv(test_path)
 
 # Some info about the data
-train.info()
+# train.info()
+#
+# print('------------------------------------')
+# print('Percentage of NA per property sorted')
+# print('------------------------------------')
+# p = (train.isna().sum()/len(train)*100).sort_values(ascending=False)
+# print(p)
+# print('----------------------------------------------------')
+# print('Unique values for duplications and other useful info')
+# print('----------------------------------------------------')
+# u = train.nunique().sort_values()
+# print(u)
 
-print('------------------------------------')
-print('Percentage of NA per property sorted')
-print('------------------------------------')
-p = (train.isna().sum()/len(train)*100).sort_values(ascending=False)
-print(p)
-print('----------------------------------------------------')
-print('Unique values for duplications and other useful info')
-print('----------------------------------------------------')
-u = train.nunique().sort_values()
-print(u)
+def clean_data(data):
+    # Drop not useful data
+    data.drop(['Cabin', 'Name', 'Ticket'], axis=1, inplace=True)
 
+    # Fill null of 'Age'
+    data['Age'] = data.groupby(['Pclass', 'Sex'])['Age'].transform(lambda x: x.fillna(x.median()))
+
+    # FARE Data missing in test
+    data['Fare'] = data.groupby(['Pclass', 'Sex'])['Age'].transform(lambda x: x.fillna(x.median()))
+
+    #
 

@@ -64,8 +64,17 @@ def clean_data(data):
 clean_train = clean_data(train)
 clean_test = clean_data(test)
 
-clean_train.info()
-clean_test.info()
+# clean_train.info()
+# clean_test.info()
+
+# Set X and y
+X = pd.get_dummies(train.drop('Survived', axis=1))
+y = train['Survived']
+
+
+# Split model train test data
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 
 

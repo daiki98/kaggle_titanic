@@ -35,6 +35,7 @@ test = pd.read_csv(test_path)
 # u = train.nunique().sort_values()
 # print(u)
 
+
 def clean_data(data):
     # Drop not useful data
     data.drop(['Cabin', 'Name', 'Ticket'], axis=1, inplace=True)
@@ -58,4 +59,13 @@ def clean_data(data):
     data['Embarked'].replace({'male': 0, 'female': 1}, inplace=True)
 
     return data
+
+
+clean_train = clean_data(train)
+clean_test = clean_data(test)
+
+clean_train.info()
+clean_test.info()
+
+
 

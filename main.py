@@ -61,6 +61,16 @@ def clean_data(data):
     return data
 
 
+def fit_and_predict(model):
+    """The following code makes faster to evaluate a model
+     automating the fit and accuracy process"""
+    model.fit(X_train, y_train)
+    prediction = model.predict(X_val)
+    return accuracy_score(y_val, prediction)
+
+
+
+
 clean_train = clean_data(train)
 clean_test = clean_data(test)
 
@@ -74,6 +84,7 @@ y = train['Survived']
 
 # Split model train test data
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 
 

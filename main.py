@@ -61,14 +61,12 @@ def clean_data(data):
     return data
 
 
-def fit_and_predict(model):
+def fit_and_predict(input_model):
     """The following code makes faster to evaluate a model
      automating the fit and accuracy process"""
-    model.fit(X_train, y_train)
-    prediction = model.predict(X_val)
+    input_model.fit(X_train, y_train)
+    prediction = input_model.predict(X_val)
     return accuracy_score(y_val, prediction)
-
-
 
 
 clean_train = clean_data(train)
@@ -85,6 +83,33 @@ y = train['Survived']
 # Split model train test data
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
+is_performance = True
+
+if is_performance:
+    model = GradientBoostingClassifier()
+    print(f'Model: {model}')
+    print(f'ACC: {fit_and_predict(model)}')
+
+    # Create CSV file
+    predict = model.predict(pd.get_dummies(clean_test))
+    output = pd.DataFrame({'PassengerId': clean_test['PassengerId'], 'Survived': predict})
+    output.to_csv('my_submission.csv', index=False)
+    print("Done")
+
+
+else:
+    # Try some models
+    model1 = LogisticRegression(solver='liblinear', random_state=42)
+    model2 = GradientBoostingClassifier()
+    model3 = RandomForestClassifier()
+    model4 = SGDClassifier()
+    model5 = SVC()
+
+    models = [model1, model2, model3, model4, model5]
+    i = 1
+    for model in models:
+        print(f'Model{i}: {model}')
+        print(f'ACC: {fit_and_predict(model)}')
 
 
 
